@@ -20,10 +20,12 @@ class Enclosure_List extends Plugin {
 			if ($_SESSION['uid'] && !get_pref("STRIP_IMAGES") && !$_SESSION["bw_limit"]) {
 				if ($always_display_enclosures || !preg_match("/<img/i", $article_content)) {
 					foreach ($result as $entry) {
+                        if (!isset($entry["filename"])) $entry["filename"] = "";
 						if (preg_match("/image/", $entry["content_type"]) || preg_match("/\.(jpg|png|gif|bmp)/i", $entry["filename"])) {
                             if ($hide_images) {
                                 continue;
                             }
+                            $encsize = "";
                             if ($entry['height'] > 0)
                                 $encsize .= ' height="' . intval($entry['width']) . '"';
                             if ($entry['width'] > 0)
